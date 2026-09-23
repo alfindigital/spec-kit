@@ -1,0 +1,82 @@
+﻿# ==============================================================================
+# 1. DEFAULT: IGNORE EVERYTHING (Allowlist Pattern)
+# ==============================================================================
+*
+
+# ==============================================================================
+# 2. GIT & AGENT CONFIGURATION
+# ==============================================================================
+!.gitignore
+!.gitattributes
+!.agents/
+!.agents/**
+!.claude/
+!.claude/**
+!CLAUDE.md
+!AGENTS.md
+!GEMINI.md
+
+# ==============================================================================
+# 3. CORE SPECS & DOCUMENTATION (Single Source of Truth)
+# ==============================================================================
+!README.md
+!SESSION.md
+!KNOWLEDGE.md
+
+# Specifications directory
+!specs/
+!specs/**
+
+# Guides & Playbooks directory
+!guides/
+!guides/**
+
+# Archive directory (keep README and metadata, ignore large binaries)
+!archive/
+!archive/**
+archive/videos/*.mp4
+
+# ==============================================================================
+# 4. SECRETS & ENCRYPTION (SOPS / Age)
+# ==============================================================================
+!.sops.yaml
+!secret.yaml
+!*.secret.yaml
+!*.enc.json
+!*.enc.env
+
+# ==============================================================================
+# 5. PROJECT MANIFESTS (When code is added)
+# ==============================================================================
+!package.json
+!package-lock.json
+!bun.lock
+!bun.lockb
+!pnpm-lock.yaml
+!yarn.lock
+!tsconfig*.json
+!pyproject.toml
+!requirements*.txt
+!Cargo.toml
+!Cargo.lock
+!go.mod
+!go.sum
+!Dockerfile
+!docker-compose.yml
+!docker-compose.yaml
+
+# ==============================================================================
+# 6. SOURCE CODE DIRECTORIES (When developed)
+# ==============================================================================
+!src/
+!src/**
+!app/
+!app/**
+!components/
+!components/**
+!lib/
+!lib/**
+!public/
+!public/**
+!tests/
+!tests/**
