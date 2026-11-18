@@ -40,9 +40,40 @@
 - **Audit Trail:** [Setiap mutasi saldo/uang dicatat ke immutable log, tanpa hard delete]
 - **Regulasi Industri:** [OJK/BI untuk fintech, HIPAA untuk kesehatan, dll.]
 
-### 1.5 Success Metrics & KPI Bisnis
-- **Metrik Utama:** [Contoh: Waktu checkout < 60 detik, retensi 30 hari > 40%]
+### 1.5 Success Metrics & KPI (Canonical)
+
+> **SINGLE SOURCE** — semua metrik keberhasilan (bisnis DAN produk) didefinisikan di sini.
+> Part lain cukup mereferensikan bagian ini; jangan duplikasi tabel KPI di tempat lain.
+
+| Metrik | Target | Kategori |
+| :--- | :--- | :--- |
+| [Metrik 1] | [Target terukur] | Bisnis / Produk |
+| [Metrik 2] | [Target terukur] | Bisnis / Produk |
+
+<!-- EXAMPLE:
+| Waktu checkout | < 60 detik | Produk |
+| Retensi 30 hari | > 40% | Bisnis |
+| Kapasitas jam sibuk | 1.000 transaksi bersamaan | Operasional |
+-->
+
 - **Kapasitas Skalabilitas:** [Contoh: 1.000 transaksi bersamaan saat jam sibuk]
+
+### 1.6 Risk Analysis & Mitigation
+
+> Identifikasi risiko PALING MAHAL lebih dulu — bukan daftar laundry semua kemungkinan.
+> Setiap risiko wajib punya mitigation konkret, bukan "akan diperhatikan".
+
+| Risiko | Impact | Probabilitas | Mitigation Strategy |
+| :--- | :--- | :--- | :--- |
+| [Risiko 1: mis. inkonsistensi data antar sistem] | [High/Med/Low] | [High/Med/Low] | [Strategi konkret: pola, fallback, monitoring] |
+| [Risiko 2: mis. kebocoran data lintas user] | [High/Med/Low] | [High/Med/Low] | [Strategi konkret] |
+| [Risiko 3: mis. biaya pihak ketiga melonjak] | [High/Med/Low] | [High/Med/Low] | [Strategi konkret] |
+
+<!-- EXAMPLE:
+| PostgreSQL dan Firebase RTDB drift | High | Medium | Transactional outbox, idempotent writes, rekonsiliasi harian |
+| Cross-user data leak via query salah | High | Low | RLS, security rules, integration test wajib |
+| Biaya push notification meledak | Medium | Medium | Cap event per user, batch update, alert budget |
+-->
 
 ---
 
@@ -70,13 +101,31 @@
     - [ ] [Kondisi 1 yang harus terpenuhi]
     - [ ] [Kondisi 2 yang harus terpenuhi]
 
-### 2.5 Non-Functional & Technical Requirements
-- **Platform:** [Web Responsive / Mobile / Desktop]
-- **Kinerja:** [Waktu respon < 1 detik]
-- **Kompatibilitas:** [Browser modern: Chrome, Safari, Edge, Firefox]
+### 2.5 Constraints & Assumptions
 
-### 2.6 Success Metrics (KPI)
-- [Metrik adopsi, retensi, konversi, dll.]
+> Bedakan tegas: **Constraint** = batasan yang tidak bisa dilanggar (teknis/legal/bisnis).
+> **Assumption** = hal yang diasumsikan benar — kalau salah, spec harus direvisi.
+> Mencatat assumption secara jujur lebih baik daripada memaksakan kepastian palsu.
+
+**Constraints:**
+- [Batasan 1: mis. online-only, tidak ada offline mode]
+- [Batasan 2: mis. budget hosting < Rp500rb/bulan]
+- [Batasan 3: mis. harus jalan di serverless execution limit]
+
+**Assumptions:**
+- [Asumsi 1: mis. user punya koneksi internet stabil]
+- [Asumsi 2: mis. provider pihak ketiga sudah dikonfigurasi sebelum launch]
+- [Asumsi 3: mis. semua timestamp disimpan UTC, ditampilkan timezone lokal]
+
+<!-- EXAMPLE: "Asumsi: user memberikan izin notifikasi browser." — kalau tidak,
+fitur push reminder harus punya fallback in-app badge. -->
+
+### 2.6 Catatan Lokasi Kanonik
+
+- **NFR** (performa, availability, security target) → didefinisikan di **Part 3.6**, bukan di sini.
+- **KPI & metrik sukses** → didefinisikan di **Part 1.5**, bukan di sini.
+- **Target device & responsive breakpoint** → **DESIGN_SPEC.md §4**; **kompatibilitas minimum** (browser/runtime versi, OS) → tulis sebagai constraint di **§2.5** atas.
+- **Kontrak API envelope** (success/error shape) → canonical di **TECH_SPEC.md §3.1** — spec ini hanya menuntut envelope konsisten ada, bukan mendefinisikannya ulang.
 
 ---
 
@@ -102,12 +151,23 @@
 #### Backlog `BL-001`: [Nama Backlog]
 * **Parent Epic:** [EPIC-XXX]
 * **Aktor:** [ACT-XX]
+* **Sisi:** [User-facing | System-facing]
 * **Deskripsi:** [Deskripsi fungsional]
 * **Input Parameters:** [parameter dan tipe data]
 * **Output / State Change:** [perubahan state sistem]
 * **Edge Cases & Guardrails:** [skenario gagal dan proteksinya]
 
-<!-- EXAMPLE: Backlog e-commerce (Auth, Cart, Checkout) — lihat archive/legacy/specs/SRS.md untuk contoh lengkap. -->
+> **Aturan Sisi:**
+> - **User-facing** — aksi yang bisa dilakukan aktor lewat UI/API publik (create task, filter, snooze reminder).
+> - **System-facing** — kewajiban sistem yang TIDAK pernah jadi user story: enforcement security (RLS, JWT verify), sinkronisasi antar-service, retry/fallback, soft-delete lifecycle, rate limiting, audit trail.
+> System-facing backlog sering lolos kalau spec cuma berisi user stories — wajib didaftarkan eksplisit agar agent tidak mengabaikannya.
+
+<!-- EXAMPLE System-facing:
+`BL-015` — Sisi: System-facing — "System me-retry pengiriman push notification 1x; setelah gagal, munculkan in-app badge."
+`BL-016` — Sisi: System-facing — "System menegakkan isolasi data per owner via row-level security."
+-->
+
+<!-- EXAMPLE: Daftar backlog untuk e-commerce biasanya mencakup Auth (BL-001), Cart (BL-002), Checkout (BL-003), Webhook Payment (BL-004, System-facing). -->
 
 ### 3.3 Dependency Matrix
 
@@ -140,26 +200,14 @@ Suatu backlog dinyatakan **DONE** hanya jika memenuhi SELURUH checklist:
 
 ### 3.5 Kontrak API Response (Envelope Standar)
 
-**Sukses (`HTTP 200/201`):**
-```json
-{
-  "success": true,
-  "data": { ... },
-  "meta": { "timestamp": "...", "request_id": "req_uuidv7" }
-}
-```
-
-**Error (`HTTP 4xx/5xx`):**
-```json
-{
-  "success": false,
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "Pesan user-friendly.",
-    "details": [{ "field": "...", "issue": "..." }]
-  }
-}
-```
+> **SINGLE SOURCE** — definisi envelope canonical ada di `TECH_SPEC.md §3.1`
+> (Standard Response Envelope). Spec ini hanya menetapkan REQUIREMENT-nya:
+>
+> - [ ] Semua endpoint memakai envelope sukses/error yang konsisten (bukan shape ad-hoc per endpoint)
+> - [ ] Error response membawa `code` machine-readable + `message` user-friendly + `details` field-level
+> - [ ] Sukses membawa `meta.request_id` untuk traceability
+>
+> Definisi schema/format persis → lihat TECH_SPEC Part 3. Jangan definisikan ulang di sini.
 
 ### 3.6 Non-Functional Requirements (NFR)
 

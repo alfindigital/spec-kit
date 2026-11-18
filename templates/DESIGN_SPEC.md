@@ -2,7 +2,7 @@
 
 > **Tujuan:** Panduan visual, sistem token, serta spesifikasi interaksi UI/UX untuk menjaga konsistensi frontend.
 > **Cara Pakai:** Copy ke repo project, isi tokens dan komponen sesuai design system project Anda.
-> **Referensi Prompt:** Lihat [`guides/UI_UX_DESIGN_SYSTEM.md`](../guides/UI_UX_DESIGN_SYSTEM.md) untuk 8 template prompt UI/UX.
+> **Referensi Prompt:** Lihat [`guides/UI_UX_DESIGN_SYSTEM.md`](../references/guides/UI_UX_DESIGN_SYSTEM.md) untuk 8 template prompt UI/UX.
 > **Template Komunitas:** [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)
 
 ---

@@ -230,7 +230,7 @@ export const CreateOrderSchema = z.object({
 2. **Rate Limiting:** 60 req/menit endpoint publik, 10 req/menit auth/payment.
 
 ### 5.3 Secret Management
-Dilarang hardcode kredensial. Semua secret via Mozilla SOPS (`secret.yaml`). Detail: lihat [`guides/SECURITY_AND_SECRETS.md`](../guides/SECURITY_AND_SECRETS.md).
+Dilarang hardcode kredensial. Semua secret via Mozilla SOPS (`secret.yaml`). Detail: lihat [`guides/SECURITY_AND_SECRETS.md`](../references/guides/SECURITY_AND_SECRETS.md).
 
 ### 5.4 Calculation Formulas & Business Edge Cases
 

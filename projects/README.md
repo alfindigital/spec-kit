@@ -1,14 +1,9 @@
-# Projects & Drafts Workspace
+# Draf proyek
 
-Folder ini digunakan sebagai **ruang inkubasi & perancangan spesifikasi (drafting room)** untuk ide aplikasi atau fitur baru.
+Gunakan folder `projects/<nama-ide>/` untuk menyusun draf saat ide belum punya repo.
 
-### Alur Kerja:
-1. Saat Anda memiliki ide produk/app baru, buat folder draf di sini:
-   `Documents/AI/blueprints/projects/<nama-ide>/`
-2. Salin template yang relevan dari `../templates/`:
-   * Untuk app cepat/micro-SaaS: Salin `LEAN_PRD.md` dan `IMPLEMENTATION_PLAN.md`.
-   * Untuk sistem kompleks: Salin `PRODUCT_SPEC.md` dan `TECH_SPEC.md`.
-3. Diskusikan dan matangkan spesifikasi bersama AI (gunakan `/grill-me` untuk menguji edge cases dan logika bisnis).
-4. Setelah spec berstatus **APPROVED**:
-   * Pindahkan spec final ke folder repository kode sebenarnya (misal di `Documents/Apps/<nama-proyek>/specs/` atau `Documents/IDX/<nama-proyek>/specs/`).
-   * Mulai eksekusi koding bersama AI agent.
+1. Pilih jalur memakai [aturan spec-kit](../SKILL.md#pilih-alur-sebelum-menulis-spec).
+2. Ambil berkas yang relevan dari [katalog template](../templates/README.md).
+   Catat tujuan, batas, dan kriteria selesai di spec. Turunkan tugas ke satu `PLAN.md`.
+3. Ikuti aturan persetujuan untuk jalur yang dipilih. Saat repo proyek siap,
+   pindahkan draf terpilih ke repo tersebut agar tetap berada dekat dengan kode.

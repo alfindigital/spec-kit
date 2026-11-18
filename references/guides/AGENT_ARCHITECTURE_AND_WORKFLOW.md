@@ -114,7 +114,7 @@ Urutan prioritas saat agent memilih tool:
 
 ## Section 4: /grill-me — Validasi Spec Sebelum Coding
 
-> **Sudah jadi skill standalone** — protokol lengkap ada di skill `grill-me`
+> **Sudah jadi skill standalone** — protokol lengkap ada di skill `tanya-dulu` (mode GRILL, `/grill-me`)
 > (sibling, di library skill yang sama). Section ini hanya ringkasan integrasi.
 
 Gunakan `/grill-me` saat: setelah spec baru ditulis, sebelum implementasi/`PLAN.md`,

@@ -2,7 +2,7 @@
 
 Hub resmi di PC ini untuk merancang cetak biru software (PRD, Tech Spec, ERD, User Flow, dan Implementation Plan) sebelum mengeksekusi koding bersama AI coding agent.
 
-Repository ini terhubung langsung dengan remote GitHub [`alfindigital/spec-kit`](https://github.com/alfindigital/spec-kit) dan terintegrasi dengan skill AI master `spec-kit`.
+Repo GitHub [`alfindigital/spec-kit`](https://github.com/alfindigital/spec-kit) menerbitkan materi skill master `spec-kit`. Saat memperbarui salinan ini, cocokkan isi skill, template, dan referensi dengan master, lalu periksa tautan relatif. Repo ini juga menyediakan folder draf dan studi kasus.
 
 ---
 
