@@ -21,37 +21,19 @@ Documents/AI/blueprints/
 │   ├── BLUEPRINT_REVIEW.md # Gerbang review sebelum spec disetujui (STATUS: APPROVED)
 │   ├── living-docs/        # Template dokumen pemantauan (CURRENT_STATE, TASKS, HANDOVER)
 │   └── ops/                # Template kesiapan produksi & runbook
-├── guides/                 # Panduan operasional engineering
-│   ├── VIBE_CODING_MASTERGUIDE.md # Panduan lengkap alur vibe coding modern
-│   ├── ANTI_OVERENGINEERING.md   # Prinsip YAGNI & pembatas kompleksitas
-│   ├── TESTING_AND_INTEGRITY.md  # Standar testing & verifikasi
-│   └── SECURITY_AND_SECRETS.md   # Manajemen rahasia & keamanan
 ├── references/             # Standar coding & studi kasus lapangan
 │   ├── AGENTS.md           # Aturan baku engineering AI
+│   ├── guides/            # Panduan operasional engineering
 │   └── case-studies/       # Studi kasus nyata praktisi (SariClean curated)
 └── projects/               # Workspace drafting ide sebelum masuk ke Documents/Apps/
 ```
 
 ---
 
-## 🎯 Panduan Pemilihan Template: Pakai yang Mana?
+## Mulai
 
-| Jenis Proyek / Kebutuhan | Template yang Digunakan | Waktu Pengerjaan Spec |
-|---|---|---|
-| **Micro-SaaS, MVP Cepat, Vibe Coding, Side Project** | [`templates/LEAN_PRD.md`](templates/LEAN_PRD.md) + [`templates/IMPLEMENTATION_PLAN.md`](templates/IMPLEMENTATION_PLAN.md) | 15–30 Menit |
-| **Aplikasi Bisnis / Klien / Sistem Skala Penuh** | [`templates/PRODUCT_SPEC.md`](templates/PRODUCT_SPEC.md) + [`templates/TECH_SPEC.md`](templates/TECH_SPEC.md) | 1–3 Jam |
-| **Aplikasi dengan UI/UX Kustom Tinggi** | Tambahkan [`templates/DESIGN_SPEC.md`](templates/DESIGN_SPEC.md) | Sesuai kebutuhan |
-| **Fitur Baru pada Sistem yang Sudah Berjalan** | [`templates/BROWNFIELD_SPEC.md`](templates/BROWNFIELD_SPEC.md) | 30 Menit |
-
----
-
-## 🚀 Alur Kerja Cepat (Quickstart)
-
-1. **Inisiasi Ide:**
-   Buat folder di `projects/<nama-ide>/` dan copy [`templates/LEAN_PRD.md`](templates/LEAN_PRD.md).
-2. **Kunci Fondasi (Architecture & Data Gate):**
-   Tulis problem inti, tentukan stack, dan definisikan skema database/ERD minimal.
-3. **Uji Kritis (`/grill-me`):**
-   Minta AI menguji logika spec untuk menemukan celah atau edge cases tersembunyi.
-4. **Eksekusi di Folder Proyek:**
-   Pindahkan spec yang sudah disetujui ke repo proyek (misal di `Documents/Apps/<proyek>/specs/`) dan jalankan koding bertahap bersama AI agent.
+1. Pilih Lean atau Full dengan [aturan spec-kit](SKILL.md#pilih-alur-sebelum-menulis-spec).
+2. Ambil dokumen dari [panduan template](templates/README.md). Untuk draft ide
+   yang belum punya repo, gunakan `projects/<nama-ide>/`.
+3. Simpan spec dan satu `PLAN.md` di repo proyek. Isi kriteria selesai sesuai
+   target pemakaian, lalu verifikasi alur utama ketika perubahan siap.

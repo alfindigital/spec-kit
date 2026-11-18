@@ -1,16 +1,11 @@
 ---
 name: spec-kit
 description: >-
-  Spec-driven development kit milik user: 3 mega-template spesifikasi (PRODUCT/TECH/DESIGN),
-  9-section coding standards, dan 10 panduan operasional untuk AI coding agent. Aktif saat
-  user memulai project software baru, mengetik "spec-kit", "bikin spec", "tulis PRD",
-  "product spec", "tech spec", "design spec", "mulai project baru", "kickoff project",
-  "spesifikasi project", meminta dokumen requirements/arsitektur/design system, ATAU
-  security research defensif ("bug-hunter", "bug bounty", "triage kerentanan", "audit
-  keamanan defensif", "PoC vulnerability", verifikasi celah empiris) — framework Fox
-  BugHunter Discipline ada di references/guides/BUG_HUNTER_FRAMEWORK.md.
-  Wajib dipakai SEBELUM generate kode project baru — copy template dari templates/ ke repo
-  project, jangan edit di sini.
+  Spec-driven development kit: alur Lean atau Full sesuai risiko, intake dan blueprint review,
+  SPEC_SYNC, coding standards. Aktif saat mulai project software baru ("spec-kit", "bikin spec", "tulis PRD",
+  "kickoff project"), brownfield ("revamp", "rewrite", "migrasi sistem lama"), living docs ("CURRENT_STATE",
+  "handover"), runbook server, dan security research defensif ("bug-hunter", "bug bounty", "PoC vulnerability").
+  Wajib SEBELUM generate kode project baru.
 ---
 
 # Spec-Kit — Spec-Driven Development Blueprint (milik user)
@@ -21,39 +16,64 @@ cara baku memulai dan mengeksekusi project software bersama AI agent.
 
 ---
 
-## 🚀 Bootstrap: Memulai Project Baru (urutan wajib)
+## Pilih alur sebelum menulis spec
 
-### Step 1 — Baca Aturan Coding
-Baca [`references/AGENTS.md`](references/AGENTS.md) — standar engineering yang mengikat:
-- SRP, fungsi ≤40 baris, early returns, strict typing
-- Layered architecture (Presentation / Business / Data)
-- Anti-overengineering guardrails & action boundaries
-- Git hygiene & secrets management (SOPS + age)
+Pakai **Lean** untuk pekerjaan dengan cakupan jelas, dampak rendah, dan mudah
+dibalik. Pakai **Full** bila perubahan menyentuh pembayaran, data sensitif atau
+izin akses penting, migrasi produksi, kontrak lintas sistem, atau keputusan lain
+yang mahal untuk dibalik. Untuk repo yang sudah berjalan, baca perilaku dan
+dokumen yang ada lebih dulu, lalu terapkan alur pada perubahan yang diminta.
+Jika risiko tinggi baru diketahui saat mengerjakan Lean, hentikan bagian yang
+terdampak dan bawa keputusan itu ke review Full.
 
-### Step 2 — Pahami 3 Template Spesifikasi
-Baca [`templates/README.md`](templates/README.md) untuk workflow 3-template:
+Gunakan [aturan engineering](references/AGENTS.md) sesuai konteks repo.
 
-| Template | Fokus | Pertanyaan yang Dijawab |
-|----------|-------|------------------------|
-| [`templates/PRODUCT_SPEC.md`](templates/PRODUCT_SPEC.md) | Why + What + Requirements | Mengapa dibangun? Untuk siapa? Backlog & DoD? |
-| [`templates/TECH_SPEC.md`](templates/TECH_SPEC.md) | How + Data + Contracts | Arsitektur? Stack? DDL? API? Validasi? Security? |
-| [`templates/DESIGN_SPEC.md`](templates/DESIGN_SPEC.md) | Look & Feel | Design tokens? Typography? Component states? a11y? |
+### Lean
 
-### Step 3 — Generate Spec di Repo Project
-Di **repo project baru** (BUKAN di folder skill ini), buat 3 file spec dari template:
-1. `PRODUCT_SPEC.md` — konteks bisnis & requirement
-2. `TECH_SPEC.md` — arsitektur & kontrak teknis
-3. `DESIGN_SPEC.md` — design system
+1. Ambil tujuan, cakupan, dan batas dari brief. Tanyakan hanya keputusan yang
+   mengubah perilaku, risiko, atau bukti selesai. Untuk celah yang bisa ditunda,
+   catat asumsi atau keputusan terbukanya.
+2. Isi [LEAN_PRD.md](templates/LEAN_PRD.md) sebagai kontrak hasil. Turunkan tugas
+   ke satu `PLAN.md` dari [template plan](templates/IMPLEMENTATION_PLAN.md).
+3. Periksa skenario utama, satu kegagalan yang relevan, dan target verifikasi.
+   Catat keputusan yang sudah diberikan owner. Jika owner sudah meminta
+   eksekusi dan scope cukup jelas, lanjutkan tanpa approval blueprint tambahan.
 
-### Step 4 — Validasi Spec
-Stress-test spec dengan skill **`grill-me`** (sibling, standalone): interogasi
-terarah untuk gali asumsi tersembunyi,
-edge cases, dan keputusan arsitektur. Stateful — istilah resolved ditulis ke
-`CONTEXT.md` di repo project, keputusan berat (lolos 3 gate) jadi ADR di `docs/adr/`,
-sisanya dituangkan kembali ke spec.
+### Full
 
-### Step 5 — Plan & Eksekusi
-`PLAN.md` (backlog atomik, 1 task = 1 commit) → TDD → commit atomik → review via fresh session.
+1. Ikuti protokol [INTAKE.md](templates/INTAKE.md). Jumlah pertanyaan mengikuti
+   keputusan material yang belum terjawab.
+2. Ringkas scope, risiko, keputusan terbuka dan paket dokumen di
+   [BLUEPRINT_REVIEW.md](templates/BLUEPRINT_REVIEW.md). Lanjut setelah owner
+   menyetujui ringkasan di chat atau dokumen. Catat sumber persetujuannya.
+3. Isi atau perbarui PRODUCT_SPEC dan TECH_SPEC. Tambahkan DESIGN_SPEC jika
+   perlu mendefinisikan UI, serta dokumen tambahan sesuai
+   [panduan template](templates/README.md). Untuk revamp atau migrasi,
+   audit kondisi lama dan pertahankan perilaku yang disepakati.
+4. Uji asumsi dan skenario gagal dengan `tanya-dulu` mode grill. Tulis istilah
+   yang sudah disepakati di `CONTEXT.md` bila diperlukan. Gunakan ADR untuk
+   keputusan berat yang perlu diingat. Selesaikan keputusan yang menghambat
+   pekerjaan berikutnya sebelum eksekusi bagian tersebut.
+5. Turunkan spesifikasi tervalidasi ke satu `PLAN.md`. Jika ada roadmap,
+   rinci milestone aktif saja. Kaitkan tugas dengan hasil dan verifikasinya.
+
+Saat mengeksekusi plan, ikuti cara kerja repo untuk pengujian dan commit.
+Untuk Full, gunakan TDD untuk perilaku yang berubah dan minta review segar
+sebelum pekerjaan berisiko dinyatakan selesai.
+
+### Perawatan dokumen
+
+- Pakai [living docs](templates/living-docs/README.md) bila state dan handover belum
+  tertangani oleh dokumen yang dipakai lintas sesi. Perbarui bagian yang berubah.
+- Pakai [ops docs](templates/ops/README.md) bila ada proses yang perlu dioperasikan
+  dan diverifikasi. Pakai [readiness gate](templates/ops/PRODUCTION_READINESS.md)
+  bila targetnya go-live produksi.
+- Untuk tiga pemakaian berikutnya pada pekerjaan yang sudah masuk antrean,
+  tambahkan satu baris di catatan penutup yang sudah dipakai proyek. Catat jalur,
+  waktu kerja sampai scope disepakati, jumlah keputusan yang dibuka kembali
+  setelah coding mulai, serta dokumen yang dipakai untuk implementasi atau
+  handover. Setelah tiga pekerjaan, gunakan ketiga catatan itu untuk menilai
+  waktu yang dihemat dan pekerjaan ulang sebelum mengubah aturan lagi.
 
 ### Bonus — Git Hygiene
 Untuk repo baru, copy [`templates/gitignore.allowlist`](templates/gitignore.allowlist)
@@ -69,15 +89,19 @@ JANGAN baca semua reference sekaligus (~70KB). Baca hanya yang relevan:
 |----------------|------------------|
 | Workflow harian AI coding | [`references/guides/VIBE_CODING_MASTERGUIDE.md`](references/guides/VIBE_CODING_MASTERGUIDE.md) |
 | Multi-agent orchestration | [`references/guides/AGENT_ARCHITECTURE_AND_WORKFLOW.md`](references/guides/AGENT_ARCHITECTURE_AND_WORKFLOW.md) |
-| Validasi/interogasi spec | Skill `grill-me` (sibling) — bukan bagian spec-kit |
+| Validasi/interogasi spec | Skill `tanya-dulu` mode grill (sibling) — bukan bagian spec-kit |
 | Mencegah overengineering | [`references/guides/ANTI_OVERENGINEERING.md`](references/guides/ANTI_OVERENGINEERING.md) |
-| Debugging & investigasi bug | Skill `bug-hunter` (sibling) — framework sama dengan `references/guides/BUG_HUNTER_FRAMEWORK.md` |
+| Debugging & investigasi bug | [`references/guides/BUG_HUNTER_FRAMEWORK.md`](references/guides/BUG_HUNTER_FRAMEWORK.md) + skill `systematic-debugging` (sibling) |
 | Security, SOPS & secrets | [`references/guides/SECURITY_AND_SECRETS.md`](references/guides/SECURITY_AND_SECRETS.md) |
 | UI/UX & design system | [`references/guides/UI_UX_DESIGN_SYSTEM.md`](references/guides/UI_UX_DESIGN_SYSTEM.md) |
 | Testing & data integrity | [`references/guides/TESTING_AND_INTEGRITY.md`](references/guides/TESTING_AND_INTEGRITY.md) |
 | Git workflow & .gitignore | [`references/guides/GIT_HYGIENE.md`](references/guides/GIT_HYGIENE.md) |
 | Slide/presentasi dari notes | [`references/guides/SLIDE_AND_PRESENTATION.md`](references/guides/SLIDE_AND_PRESENTATION.md) |
 | Distribusi binary CLI | [`references/guides/CLI_DISTRIBUTION.md`](references/guides/CLI_DISTRIBUTION.md) |
+| Revamp/merger sistem existing | [`templates/BROWNFIELD_SPEC.md`](templates/BROWNFIELD_SPEC.md) |
+| Update state project per task | [`templates/living-docs/README.md`](templates/living-docs/README.md) |
+| Setup proses server / runbook | [`templates/ops/README.md`](templates/ops/README.md) + `RUNBOOK.md` |
+| Gate sebelum go-live | [`templates/ops/PRODUCTION_READINESS.md`](templates/ops/PRODUCTION_READINESS.md) |
 
 ---
 
@@ -88,3 +112,17 @@ JANGAN baca semua reference sekaligus (~70KB). Baca hanya yang relevan:
 3. Context window = resource berharga — routing table dulu, baca seperlunya
 4. Spec hierarchy: `BRD(Why) → PRD(What) → TechSpec(How) → PLAN.md → Code`
 5. Orchestrator pattern: main agent satu-satunya yang write/commit/push; worker subagent read-only
+6. **SPEC_SYNC (impact analysis manual):** saat mengubah SATU requirement/section
+   di spec manapun, WAJIB sebelum apply:
+   - List semua section di spec lain yang terdampak (mis. tambah fitur upload →
+     PRODUCT_SPEC backlog + TECH_SPEC storage/API + DESIGN_SPEC component)
+   - Tampilkan daftar dampak ke user → apply bersamaan, jangan update 1 dokumen
+     lalu lupa sisanya
+   - Catat perubahan sebagai entry change-log di repo project (commit message
+     atau `CHANGELOG.md`) agar "request → dok terdampak → hasil" terlacak
+7. **Language rule:** naratif spec Bahasa Indonesia (kecuali user minta English);
+   identifier, schema, nama tabel/field, code, path, error code SELALU English
+8. **Secrets boundary (mutlak):** tidak ada markdown di repo project — specs,
+   living-docs, maupun ops — yang boleh memuat credential/token/IP/secret aktual.
+   Selalu referensi `.env`/vault/secret manager (`See .env: X`, `{value_from_env}`).
+   Template pack `living-docs/` & `ops/` sudah membawa aturan ini di README-nya.

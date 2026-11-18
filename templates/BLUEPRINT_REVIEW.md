@@ -4,7 +4,7 @@
 > dan di-approve user sebelum agent menulis PRODUCT_SPEC / TECH_SPEC / DESIGN_SPEC.
 > Mencegah spec digenerate dari asumsi yang salah.
 > **Cara Pakai:** Agent mengisi seluruh bagian dari hasil interview, user mengoreksi
-> inline, lalu menulis `STATUS: APPROVED` di bagian akhir.
+> di chat atau dokumen. Agent mencatat persetujuan di bagian 1.
 
 ---
 
@@ -71,22 +71,21 @@
 
 ## 7. Dokumen yang Akan Digenerate
 
-> Bundle adaptif per kompleksitas — core selalu ada, satellite hanya bila relevan.
-
-**Core (selalu):**
+**Inti Full**
 - [ ] `specs/PRODUCT_SPEC.md`
 - [ ] `specs/TECH_SPEC.md`
-- [ ] `specs/DESIGN_SPEC.md`
 
-**Satellite (centang bila perlu):**
-- [ ] `specs/USER_FLOW.md` — bila flow multi-aktor/multi-state kompleks
-- [ ] `specs/ROADMAP.md` — bila delivery bertahap >1 fase/milestone
-- [ ] `specs/SECURITY.md` — bila domain regulated, PII sensitif, payment, atau multi-tenant
+**Tambahkan sesuai kebutuhan**
+- [ ] `specs/DESIGN_SPEC.md` bila perlu mendefinisikan UI
+- [ ] `specs/USER_FLOW.md` bila flow multi-aktor atau multi-state kompleks
+- [ ] `specs/ROADMAP.md` bila delivery bertahap
+- [ ] `specs/SECURITY.md` bila domain regulated, data sensitif, pembayaran, atau multi-tenant
+- [ ] `specs/BROWNFIELD_SPEC.md` bila perlu audit kondisi lama, revamp, atau migrasi
 
 ## 8. Sign-off
 
 - [ ] Semua section di atas sudah dikoreksi user
 - [ ] Open decisions punya default atau dicatat eksplisit
-- [ ] `STATUS: APPROVED` ditulis user di section 1
+- [ ] Owner menyetujui ringkasan. Catat `STATUS: APPROVED`, tanggal, dan sumber persetujuan di bagian 1.
 
 > Setelah APPROVED → agent generate spec sesuai bundle section 7 → lanjut validasi `grill-me`.

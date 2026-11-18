@@ -25,9 +25,9 @@ Dari deskripsi mentah, agent mengekstrak kandidat awal (belum final):
 - **Kandidat constraint:** [batasan yang disebut eksplisit]
 - **Knowledge gaps:** [daftar keputusan yang BELUM dijawab narasi — inilah bahan pertanyaan]
 
-### Fase 3 — Pertanyaan Adaptif (5–8 soal)
-Agent menyusun pertanyaan **hanya untuk gap yang belum terjawab**. Jangan tanyakan
-yang sudah jelas dari narasi. Format tiap pertanyaan:
+### Fase 3 — Pertanyaan Adaptif
+Tanyakan hanya keputusan material yang belum terjawab. Jika konteks sudah cukup,
+lanjut ke ringkasan. Format pertanyaan:
 
 ```
 TOPIC: <roles | business_rules | edge_cases | integrations | ops | scope | ux | data>
@@ -75,7 +75,7 @@ SEBELUM spec digenerate — jangan skip gate ini.
 | roles, scope, business_rules | PRODUCT_SPEC Part 1 & 3 |
 | edge_cases, ops | PRODUCT_SPEC 3.2 backlog + TECH_SPEC Part 5 |
 | integrations | TECH_SPEC 1.4 + 5.x |
-| ux, platform | DESIGN_SPEC |
+| ux, platform | DESIGN_SPEC bila perlu mendefinisikan UI |
 | data | TECH_SPEC Part 2 |
 | Open Decisions | CONTEXT.md project + risiko di PRODUCT_SPEC 1.6 |
 

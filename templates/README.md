@@ -4,31 +4,22 @@
 
 ---
 
-## Workflow Spesifikasi
+## Pilih paket
 
-$$\text{INTAKE (interview)} \longrightarrow \text{BLUEPRINT\_REVIEW (gate)} \longrightarrow \text{Core Specs} \xrightarrow{\text{/grill-me}} \text{PLAN.md} \longrightarrow \text{Code}$$
+Ikuti [aturan pemilihan alur di SKILL.md](../SKILL.md#pilih-alur-sebelum-menulis-spec).
 
-## Pilihan Jalur: Rapid / Lean vs Full Enterprise
+| Alur | Dokumen |
+|---|---|
+| Lean | [LEAN_PRD.md](LEAN_PRD.md) dan [template plan](IMPLEMENTATION_PLAN.md) untuk satu `PLAN.md` |
+| Full | Protokol [INTAKE.md](INTAKE.md), persetujuan [BLUEPRINT_REVIEW.md](BLUEPRINT_REVIEW.md), spec yang dipilih, dan satu `PLAN.md` |
 
-| Jalur | Template Utama | Cocok Untuk | Waktu Pengerjaan |
-|---|---|---|---|
-| **Rapid Vibe Coding** | [`LEAN_PRD.md`](LEAN_PRD.md) + [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) | MVP cepat, Micro-SaaS, tools internal, validasi pasar | 15–30 menit |
-| **Full Spec-Driven** | `INTAKE` $\rightarrow$ `BLUEPRINT_REVIEW` $\rightarrow$ [`PRODUCT_SPEC.md`](PRODUCT_SPEC.md) + [`TECH_SPEC.md`](TECH_SPEC.md) | Aplikasi skala penuh, sistem multi-aktor, produk klien | 1–3 jam |
-
-## Gate Documents (Step 0)
-
-| # | File | Fokus | Pertanyaan Utama |
-|---|------|-------|------------------|
-| 0a | [`INTAKE.md`](INTAKE.md) | **Adaptive Interview** | Apa yang belum diketahui dari ide mentah? Roles, business rules, edge cases, integrasi? |
-| 0b | [`BLUEPRINT_REVIEW.md`](BLUEPRINT_REVIEW.md) | **Approval Gate** | Apakah aktor, scope fitur, stack, dan open decisions sudah benar sebelum spec ditulis? |
-
-## 3 Template Core (selalu digenerate)
+## Dokumen Full
 
 | # | File | Fokus | Pertanyaan Utama |
 |---|------|-------|------------------|
 | 1 | [`PRODUCT_SPEC.md`](PRODUCT_SPEC.md) | **Why + What + Requirements** | Mengapa dibangun? Untuk siapa? Apa backlog & DoD? |
 | 2 | [`TECH_SPEC.md`](TECH_SPEC.md) | **How + Data + Contracts** | Arsitektur? Tech stack? DDL? API? Validasi? Security? |
-| 3 | [`DESIGN_SPEC.md`](DESIGN_SPEC.md) | **Look & Feel** | Design tokens? Typography? Component states? Accessibility? |
+| Jika perlu mendefinisikan UI | [`DESIGN_SPEC.md`](DESIGN_SPEC.md) | **Look & Feel** | Design tokens? Typography? Component states? Accessibility? |
 
 ## Satellite Docs (generate "when needed" — centang di BLUEPRINT_REVIEW §7)
 
@@ -51,16 +42,11 @@ $$\text{INTAKE (interview)} \longrightarrow \text{BLUEPRINT\_REVIEW (gate)} \lon
 - **Naratif** (penjelasan, requirement, rationale) → **Bahasa Indonesia** (kecuali user minta English)
 - **Teknis** (identifier, schema, nama tabel/field, code, path, error code) → **selalu English** — menjaga kompatibilitas compiler/tooling
 
-## Cara Pakai
+## Cara pakai
 
-1. **Intake:** jalankan protokol `INTAKE.md` — ide → ekstraksi draft → 5–8 pertanyaan adaptif
-2. **Review:** isi `BLUEPRINT_REVIEW.md`, user koreksi & tulis `STATUS: APPROVED`
-3. **Copy** template terpilih ke folder `specs/` di repo project baru
-4. **Isi** setiap section berdasarkan hasil interview — hapus komentar `<!-- EXAMPLE -->`
-5. **Validasi** dengan skill `tanya-dulu` mode GRILL (`/grill-me`) — stress-test asumsi & edge cases; output-nya: istilah → `CONTEXT.md`, keputusan berat → `docs/adr/`, sisanya → balik ke spec
-6. **Buat** `PLAN.md` berdasarkan specs yang sudah divalidasi (pecah milestone aktif bila ada `ROADMAP.md`)
-7. **Eksekusi** dengan TDD — commit atomik per backlog
-8. **Sync:** perubahan requirement → jalankan SPEC_SYNC rule (lihat `../SKILL.md` Aturan Mutlak #6) — list dok terdampak sebelum apply
+Isi atau perbarui dokumen terpilih di repo proyek. Simpan keputusan dan kriteria
+selesai di spec, serta tugas dan bukti pelaksanaannya di `PLAN.md`. Saat requirement
+berubah, gunakan SPEC_SYNC dari [SKILL.md](../SKILL.md) untuk meninjau dokumen terdampak.
 
 ## Aturan
 
